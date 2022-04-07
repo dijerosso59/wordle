@@ -40,6 +40,7 @@ $game->submit($new, json_decode($word_write));
       <h2>Lettre absente</h2>
     </li>
   </ul>
+  <h3>Vous avez 6 chances</h3>
 </div>
 
 <?php foreach ($game->trials as $letters) : ?>
