@@ -1,17 +1,22 @@
 <?php
 
-class Word {
-  private string $value = 'POLICE';
+declare(strict_types=1);
+// ^^'
+class staticDiffrences
+{
+    private string $value = 'POLICE';
 
-  // pas static
-  public function getRandom(): string {
-    return $this->value;
-  }
+    // pas static
+    public function getRandom(): string
+    {
+        return $this->value;
+    }
 
-  // static
-  public static function getRandom() {
-    return self::$value;
-  }
+    // static
+    public static function getRandom()
+    {
+        return self::$value;
+    }
 }
 
 // pas static

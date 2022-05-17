@@ -1,5 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
+// et l'autoload ?
 require_once '../class/Router.php';
 require_once '../class/Word.php';
 require_once '../class/Game.php';
@@ -10,4 +13,3 @@ $router = new Router();
 $router->start();
 
 // php -S localhost:8000 -t public
-?>

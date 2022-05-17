@@ -1,17 +1,21 @@
 <?php
 
-class Cookie {
+declare(strict_types=1);
 
-    public function getCookie(string $name) {
-        return isset($_COOKIE[$name]) ? $_COOKIE[$name] : null;
+class Cookie
+{
+    public function getCookie(string $name)
+    {
+        return $_COOKIE[$name] ?? null;
     }
 
-    public function setCookie(string $name, string $value): void {
+    public function setCookie(string $name, string $value): void
+    {
         setcookie($name, $value);
     }
 
-    public function destroy(string $name): void {
+    public function destroy(string $name): void
+    {
         setcookie($name, null, -1);
     }
-
 }

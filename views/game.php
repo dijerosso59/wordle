@@ -1,6 +1,6 @@
-<?php
+<?php declare(strict_types=1);
 
-$new = $_POST["word"];
+$new = $_POST['word']; // bug à l'initialisation ce n'est pas défini
 $new = strtoupper($new);
 $new = str_split($new);
 
@@ -9,17 +9,17 @@ $word = $cookie->getCookie('word');
 
 $randomWord = $word;
 
-if ($word == null) {
-  $word = new Word();
-  $randomWord = $word->getRandom();
-  $randomWord = strtoupper($randomWord);
+if (null === $word) {
+    $word = new Word();
+    $randomWord = $word->getRandom();
+    $randomWord = strtoupper($randomWord);
 
-  $cookie->setCookie("word", $randomWord);
+    $cookie->setCookie('word', $randomWord);
 }
 
 $game = new Game($randomWord);
 
-$word_write = $cookie->getCookie("words");
+$word_write = $cookie->getCookie('words');
 $game->submit($new, json_decode($word_write));
 
 ?>
@@ -43,34 +43,34 @@ $game->submit($new, json_decode($word_write));
   <h3>Vous avez 6 chances</h3>
 </div>
 
-<?php foreach ($game->trials as $letters) : ?>
+<?php foreach ($game->trials as $letters) { ?>
   <p>
-    <?php foreach ($letters as $letter) : ?>
-      <span style="background-color: <?= $letter->color ?>"><?= $letter->value ?></span>
-    <?php endforeach; ?>
+    <?php foreach ($letters as $letter) { ?>
+      <span style="background-color: <?php echo $letter->color; ?>"><?php echo $letter->value; ?></span>
+    <?php } ?>
   </p>
-<?php endforeach; ?>
+<?php } ?>
 
-<?php if ($game->state === "en cours") : ?>
+<?php if ('en cours' === $game->state) { ?>
   <form action="/game" method="post">
-    <input required name="word" type="text" minlength="<?= strlen($game->word); ?>" maxlength="<?= strlen($game->word); ?>">
+    <input required name="word" type="text" minlength="<?php echo strlen($game->word); ?>" maxlength="<?php echo strlen($game->word); ?>">
     <button type="submit">Envoyer</button>
   </form>
-<?php endif ?>
+<?php } ?>
 
-<?php if ($game->state === "gagné") : ?>
+<?php if ('gagné' === $game->state) { ?>
   <p>Bravo !</p>
   <form action="/game" method="post">
     <button type="submit">Nouvelle partie</button>
   </form>
 
-<?php endif;
-if ($game->state === "perdu") : ?>
+<?php }
+if ('perdu' === $game->state) { ?>
   <p>Perdu !</p>
   <form action="/game" method="post">
     <button type="submit">Nouvelle partie</button>
   </form>
-<?php endif; ?>
+<?php } ?>
 
 <style>
   ul {

@@ -1,33 +1,44 @@
 <?php
 
-class Letter {
-  private string $word;
-  private int $position;
+declare(strict_types=1);
 
-  public string $value;
-  public string $color = 'red';
+class Letter
+{
+    private string $word;
+    private int $position;
 
-  public function __construct(string $value, string $word, int $position) {
-    $this->value = $value;
-    $this->word = $word;
-    $this->position = $position;
+    public string $value;
+    public string $color = 'red';
 
-    $this->check();
-  }
+    public function __construct(string $value, string $word, int $position)
+    {
+        $this->value = $value;
+        $this->word = $word;
+        $this->position = $position;
 
-  private function check(): void {
-    if (!$this->isInWord()) return;
-    $this->color = 'yellow';
-    
-    if (!$this->isAtCorrectPosition()) return;
-    $this->color = 'greenyellow';
-  }
+        $this->check();
+    }
 
-  private function isInWord(): bool {
-    return strpos($this->word, $this->value) !== false;
-  }
+    private function check(): void
+    {
+        if (!$this->isInWord()) {
+            return;
+        }
+        $this->color = 'yellow';
 
-  private function isAtCorrectPosition(): bool {
-    return $this->value === str_split($this->word)[$this->position];
-  }
+        if (!$this->isAtCorrectPosition()) {
+            return;
+        }
+        $this->color = 'greenyellow';
+    }
+
+    private function isInWord(): bool
+    {
+        return false !== strpos($this->word, $this->value);
+    }
+
+    private function isAtCorrectPosition(): bool
+    {
+        return $this->value === str_split($this->word)[$this->position];
+    }
 }
